@@ -9,9 +9,13 @@ that consists of two directories, **src** and **include**, and a
 **Makefile**.
 
 It can generate the following versions:
-    * C89
+
+* C language:
+    * 89
     * C99
     * C11
+    
+* C++ language:
     * C++98
     * C++11
     * C++14
