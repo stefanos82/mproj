@@ -19,7 +19,6 @@ It can generate the following versions:
    - [x] C++98
    - [x] C++11
    - [x] C++14
-   - [x] C++17
 
 ##Installation
 
@@ -31,7 +30,7 @@ Just delete the folder.
 
 ##CLI Usage
 
-**mproj.sh** [FLAG] *project-name*
+**mproj.sh** [FLAG] \<project-name\>
 
 ####FLAG
 
@@ -51,21 +50,17 @@ Just delete the folder.
 
     It generates a C project with C11 flag.
 
-**c++98**
+**--c++98**
 
     It generates a C++ project with C++98 flag.
 
-**c++11**
+**--c++11**
 
     It generates a C++ project with C++11 flag.
 
-**c++14**
+**--c++14**
 
     It generates a C++ project with C++14 flag.
-
-**c++17**
-
-    It generates a C++ project with C++17 flag.
 
 **-v, --version:**
 

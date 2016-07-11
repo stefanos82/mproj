@@ -1,8 +1,8 @@
 #!/bin/bash
 
-version="0.0.1"
+version="1.0.0"
 
-user_flag=
+std_flag=
 project_name=
 compiler=
 file_extension=
@@ -19,7 +19,7 @@ INC = -I \$(INCLUDE)
 
 FLAGS += -Wall
 FLAGS += -pedantic
-FLAGS += -std=$user_flag
+FLAGS += -std=$std_flag
 FLAGS += -O2
 
 OBJDIR := obj
@@ -60,25 +60,52 @@ EOF
 version()
 {
 	cat <<EOF
-	mproj, version $version
-	Copyright (C) $(date +'%Y') Free Software Foundation, Inc.
-	License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+mproj, version $version
+Copyright (C) $(date +'%Y') Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 
-	This is free software; you are free to change and redistribute it.
-	There is NO WARRANTY, to the extent permitted by law.
+This is free software; you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
 EOF
 }
 
 guidance()
 {
     cat <<EOF
-    Usage: $(basename $0) [OPTIONS]
+    Usage: $(basename $0) [OPTIONS] <project-name>
 
-    -h | --help:
+    -h, --help:
+
         It prints this help message and exit.
 
-    -v | --version:
-        It displays project version and License.
+    --c89:
+
+        It generates a C project with C89 flag.
+
+    --c99:
+
+        It generates a C project with C99 flag.
+
+    --c11:
+
+        It generates a C project with C11 flag.
+
+    --c++98:
+
+        It generates a C++ project with C++98 flag.
+
+    --c++11:
+
+        It generates a C++ project with C++11 flag.
+
+    --c++14:
+
+        It generates a C++ project with C++14 flag.
+
+    -v, --version:
+    
+        Displays project version and License.
+
 EOF
     exit $1
 }
@@ -88,20 +115,136 @@ skeleton()
     if [ ! -d src ] && [ ! -d include ]; then 
         mkdir {src,include}
     fi
-    touch src/main.c
-    
-    cat > src/main.c <<EOF
+
+    if [ $compiler = "gcc" ] && [ $std_flag = "c89" ]; then
+
+        touch src/main.c
+        cat > src/main.c <<EOF
 #include <stdio.h>
 
 int main(void)
 {
-    printf("hello C world!\n");
+    printf("hello C89 world!\n");
     return 0;
 }
 EOF
+    fi
+
+    if [ $compiler = "gcc" ] && [ $std_flag = "c99" ]; then
+
+        touch src/main.c
+        cat > src/main.c <<EOF
+#include <stdio.h>
+
+int main(void)
+{
+    for (int i = 0; i < 10; i++) {
+        printf("i is %d\n", i);
+    }
+    
+    printf("\nHello C99 world!\n");
+
+    return 0;
+}
+EOF
+    fi
+
+    if [ $compiler = "gcc" ] && [ $std_flag = "c11" ]; then
+
+        touch src/main.c
+        cat > src/main.c <<EOF
+#include <stdio.h>
+
+#define typeOf(x)   \
+    _Generic(       \
+        (x),        \
+        int: "int", \
+    double: "double", \
+    default: "none")
+
+int main(void)
+{
+    printf("typeOf('A'): %s\n", typeOf('A'));
+    printf("\nHello C11 World!\n");
+
+    return 0;
+}
+EOF
+    fi
+
+    if [ $compiler = "g++" ] && [ $std_flag = "c++98" ]; then
+        
+        touch src/main.cpp
+        cat > src/main.cpp <<EOF
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello C++98 world!!!" << '\n';
+    return 0;
+}
+EOF
+    fi
+
+    if [ $compiler = "g++" ] && [ $std_flag = "c++11" ]; then
+
+        touch src/main.cpp
+        cat > src/main.cpp <<EOF
+#include <iostream>
+#include <typeinfo>
+
+int main()
+{
+    auto a = 1 + 2;
+    std::cout << "type of a: " << typeid(a).name() << '\n';
+    std::cout << "Hello C++11 world!" << '\n';
+}
+EOF
+    fi
+    if [ $compiler = "g++" ] && [ $std_flag = "c++14" ]; then 
+        
+        # special thanks to cppreference website for providing
+        # this example.
+        # I use it for demonstrative purposes and to check that
+        # my actual flag mechanism works as expected.
+
+        touch src/main.cpp
+        cat > src/main.cpp <<EOF
+#include <iostream>
+#include <tuple>
+#include <utility>
+ 
+template<typename Func, typename Tup, std::size_t... index>
+decltype(auto) invoke_helper(Func&& func, Tup&& tup, std::index_sequence<index...>)
+{
+    return func(std::get<index>(std::forward<Tup>(tup))...);
+}
+ 
+template<typename Func, typename Tup>
+decltype(auto) invoke(Func&& func, Tup&& tup)
+{
+    constexpr auto Size = std::tuple_size<typename std::decay<Tup>::type>::value;
+    return invoke_helper(std::forward<Func>(func),
+                         std::forward<Tup>(tup),
+                         std::make_index_sequence<Size>{});
+}
+ 
+void foo(int a, const std::string& b, float c)
+{
+    std::cout << a << " , " << b << " , " << c << '\n';
+}
+ 
+int main()
+{
+    auto args = std::make_tuple(2, "Hello", 3.5);
+    invoke(foo, args);
+    std::cout << "Hello C++14 world!" << '\n';
+}
+EOF
+    fi
 }
 
-if [ $# -ne 2 ]; then
+if [ $# -eq 0 ]; then
     echo
     echo "Illegal number of arguments. Add -h or --help flags for assistance."
     echo
@@ -112,50 +255,96 @@ while [ $1 ]; do
         --c89 )
             compiler=gcc
             file_extension=c
-            user_flag=c89
+            std_flag=c89
             project_name=$2
             shift
+
             mkdir $project_name
             cd $project_name
 
             skeleton
             mk_template
+            
             exit
             ;;
 
         --c99 )
             compiler=gcc
             file_extension=c
-            user_flag=c99
+            std_flag=c99
             project_name=$2
             shift
+
             mkdir $project_name
             cd $project_name
 
             skeleton
             mk_template
+
             exit
             ;;
 
         --c11 )
-            user_flag=c11
+            compiler=gcc
+            file_extension=c
+            std_flag=c11
+            project_name=$2
+            shift
+            
+            mkdir $project_name
+            cd $project_name
+
             skeleton
+            mk_template
+
             exit
             ;;
 
         --c++98 )
+            compiler=g++
+            file_extension=cpp
+            std_flag=c++98
+            project_name=$2
+            shift
+
+            mkdir $project_name
+            cd $project_name
+
+            skeleton
+            mk_template
+
             exit
             ;;
 
         --c++11 )
+            compiler=g++
+            file_extension=cpp
+            std_flag=c++11
+            project_name=$2
+            shift
+
+            mkdir $project_name
+            cd $project_name
+
+            skeleton
+            mk_template
+
             exit
             ;;
 
         --c++14 )
-            exit
-            ;;
-            
-        --c++17 )
+            compiler=g++
+            file_extension=cpp
+            std_flag=c++14
+            project_name=$2
+            shift
+
+            mkdir $project_name
+            cd $project_name
+
+            skeleton
+            mk_template
+
             exit
             ;;
 
