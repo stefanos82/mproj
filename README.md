@@ -11,15 +11,15 @@ that consists of two directories, **src** and **include**, and a
 It can generate the following versions:
 
 * C language:
-    [x] C89
-    [x] C99
-    [x] C11
+    - [x] C89
+    - [x] C99
+    - [x] C11
     
 * C++ language:
-    [x] C++98
-    [x] C++11
-    [x] C++14
-    [x] C++17
+   - [x] C++98
+   - [x] C++11
+   - [x] C++14
+   - [x] C++17
 
 ##Installation
 
