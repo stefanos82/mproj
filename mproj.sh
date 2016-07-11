@@ -25,7 +25,7 @@ FLAGS += -O2
 OBJDIR := obj
 BINDIR := bin
 
-TARGET = \$(BINDIR)/demo
+TARGET = \$(BINDIR)/\$(notdir \$(basename $project_name))
 
 SOURCES = \$(wildcard \$(SRC)/*.$file_extension)
 TMPOBJ = \$(patsubst %.$file_extension, %.o, \$(notdir \$(SOURCES)))
@@ -256,10 +256,17 @@ while [ $1 ]; do
             compiler=gcc
             file_extension=c
             std_flag=c89
-            project_name=$2
+
+            if [ -z "$project_name" ]
+            then
+                project_name="demo"
+            else
+                project_name=$2
+            fi
+            
             shift
 
-            mkdir $project_name
+            mkdir -p $project_name
             cd $project_name
 
             skeleton
@@ -272,10 +279,17 @@ while [ $1 ]; do
             compiler=gcc
             file_extension=c
             std_flag=c99
-            project_name=$2
+
+            if [ -z "$project_name" ]
+            then
+                project_name="demo"
+            else
+                project_name=$2
+            fi
+            
             shift
 
-            mkdir $project_name
+            mkdir -p $project_name
             cd $project_name
 
             skeleton
@@ -288,10 +302,17 @@ while [ $1 ]; do
             compiler=gcc
             file_extension=c
             std_flag=c11
-            project_name=$2
+            
+            if [ -z "$project_name" ]
+            then
+                project_name="demo"
+            else
+                project_name=$2
+            fi
+            
             shift
             
-            mkdir $project_name
+            mkdir -p $project_name
             cd $project_name
 
             skeleton
@@ -304,10 +325,17 @@ while [ $1 ]; do
             compiler=g++
             file_extension=cpp
             std_flag=c++98
-            project_name=$2
+
+            if [ -z "$project_name" ]
+            then
+                project_name="demo"
+            else
+                project_name=$2
+            fi
+            
             shift
 
-            mkdir $project_name
+            mkdir -p $project_name
             cd $project_name
 
             skeleton
@@ -320,10 +348,17 @@ while [ $1 ]; do
             compiler=g++
             file_extension=cpp
             std_flag=c++11
-            project_name=$2
+
+            if [ -z "$project_name" ]
+            then
+                project_name="demo"
+            else
+                project_name=$2
+            fi
+
             shift
 
-            mkdir $project_name
+            mkdir -p $project_name
             cd $project_name
 
             skeleton
@@ -336,10 +371,17 @@ while [ $1 ]; do
             compiler=g++
             file_extension=cpp
             std_flag=c++14
-            project_name=$2
+            
+            if [ -z "$project_name" ]
+            then
+                project_name="demo"
+            else
+                project_name=$2
+            fi
+            
             shift
 
-            mkdir $project_name
+            mkdir -p $project_name
             cd $project_name
 
             skeleton
