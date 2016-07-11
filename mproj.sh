@@ -257,7 +257,7 @@ while [ $1 ]; do
             file_extension=c
             std_flag=c89
 
-            if [ -z "$project_name" ]
+            if [ -z "$2" ]
             then
                 project_name="demo"
             else
@@ -280,7 +280,7 @@ while [ $1 ]; do
             file_extension=c
             std_flag=c99
 
-            if [ -z "$project_name" ]
+            if [ -z "$2" ]
             then
                 project_name="demo"
             else
@@ -303,7 +303,7 @@ while [ $1 ]; do
             file_extension=c
             std_flag=c11
             
-            if [ -z "$project_name" ]
+            if [ -z "$2" ]
             then
                 project_name="demo"
             else
@@ -326,7 +326,7 @@ while [ $1 ]; do
             file_extension=cpp
             std_flag=c++98
 
-            if [ -z "$project_name" ]
+            if [ -z "$2" ]
             then
                 project_name="demo"
             else
@@ -349,7 +349,7 @@ while [ $1 ]; do
             file_extension=cpp
             std_flag=c++11
 
-            if [ -z "$project_name" ]
+            if [ -z "$2" ]
             then
                 project_name="demo"
             else
@@ -372,7 +372,7 @@ while [ $1 ]; do
             file_extension=cpp
             std_flag=c++14
             
-            if [ -z "$project_name" ]
+            if [ -z "$2" ]
             then
                 project_name="demo"
             else
