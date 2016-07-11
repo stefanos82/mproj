@@ -11,7 +11,7 @@ that consists of two directories, **src** and **include**, and a
 It can generate the following versions:
 
 * C language:
-    * 89
+    * C89
     * C99
     * C11
     
