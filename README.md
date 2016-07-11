@@ -32,6 +32,13 @@ Just delete the folder.
 
 **mproj.sh** [FLAG] \<project-name\>
 
+    In case you forget to insert a project name as your second argument,
+    it defaults to [FLAG]_demo.
+
+    Example(s):
+        * mproj.sh --c89 /tmp/a/directory/of/your/choice
+        * mproj.sh --c++11 
+
 ####FLAG
 
 **-h, --help:**
