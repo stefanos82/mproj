@@ -259,7 +259,11 @@ while [ $1 ]; do
 
             if [ -z "$2" ]
             then
-                project_name="demo"
+                project_name="${std_flag}_demo"
+                echo
+                echo "Second argument was not provided."
+                echo "Project's default name is '$project_name'."
+                echo
             else
                 project_name=$2
             fi
@@ -282,7 +286,11 @@ while [ $1 ]; do
 
             if [ -z "$2" ]
             then
-                project_name="demo"
+                project_name="${std_flag}_demo"
+                echo
+                echo "Second argument was not provided."
+                echo "Project's default name is '$project_name'."
+                echo
             else
                 project_name=$2
             fi
@@ -305,7 +313,11 @@ while [ $1 ]; do
             
             if [ -z "$2" ]
             then
-                project_name="demo"
+                project_name="${std_flag}_demo"
+                echo
+                echo "Second argument was not provided."
+                echo "Project's default name is '$project_name'."
+                echo
             else
                 project_name=$2
             fi
@@ -328,7 +340,11 @@ while [ $1 ]; do
 
             if [ -z "$2" ]
             then
-                project_name="demo"
+                project_name="${std_flag}_demo"
+                echo
+                echo "Second argument was not provided."
+                echo "Project's default name is '$project_name'."
+                echo
             else
                 project_name=$2
             fi
@@ -351,7 +367,11 @@ while [ $1 ]; do
 
             if [ -z "$2" ]
             then
-                project_name="demo"
+                project_name="${std_flag}_demo"
+                echo
+                echo "Second argument was not provided."
+                echo "Project's default name is '$project_name'."
+                echo
             else
                 project_name=$2
             fi
@@ -374,7 +394,11 @@ while [ $1 ]; do
             
             if [ -z "$2" ]
             then
-                project_name="demo"
+                project_name="${std_flag}_demo"
+                echo
+                echo "Second argument was not provided."
+                echo "Project's default name is '$project_name'."
+                echo
             else
                 project_name=$2
             fi
