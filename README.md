@@ -31,34 +31,44 @@ Just delete the folder.
 
 ##CLI Usage
 
-**mproj.sh** [FLAG] <project-name>
+**mproj.sh** [FLAG] [<project-name>]
 
 ####FLAG
+
 **-h, --help:**
+
     It prints this help message and exit.
     
 **--c89**
+
     It generates a C project with C89 flag.
 
 **--c99**
+
     It generates a C project with C99 flag.
 
 **--c11**
+
     It generates a C project with C11 flag.
 
 **c++98**
+
     It generates a C++ project with C++98 flag.
 
 **c++11**
+
     It generates a C++ project with C++11 flag.
 
 **c++14**
+
     It generates a C++ project with C++14 flag.
 
 **c++17**
+
     It generates a C++ project with C++17 flag.
 
 **-v, --version:**
+
     Displays project version and License.
 
 ##License
