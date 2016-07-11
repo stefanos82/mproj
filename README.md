@@ -11,15 +11,15 @@ that consists of two directories, **src** and **include**, and a
 It can generate the following versions:
 
 * C language:
-    * C89
-    * C99
-    * C11
+    [x] C89
+    [x] C99
+    [x] C11
     
 * C++ language:
-    * C++98
-    * C++11
-    * C++14
-    * C++17
+    [x] C++98
+    [x] C++11
+    [x] C++14
+    [x] C++17
 
 ##Installation
 
@@ -31,7 +31,7 @@ Just delete the folder.
 
 ##CLI Usage
 
-**mproj.sh** [FLAG] [<project-name>]
+**mproj.sh** [FLAG] *project-name*
 
 ####FLAG
 
