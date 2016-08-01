@@ -17,7 +17,7 @@ INCLUDE = include
 
 INC = -I \$(INCLUDE)
 
-FLAGS += -Wall
+FLAGS ?= -Wall
 FLAGS += -pedantic
 FLAGS += -std=$std_flag
 FLAGS += -O2
@@ -215,13 +215,15 @@ EOF
 #include <utility>
  
 template<typename Func, typename Tup, std::size_t... index>
-decltype(auto) invoke_helper(Func&& func, Tup&& tup, std::index_sequence<index...>)
+decltype(auto) 
+invoke_helper(Func&& func, Tup&& tup, std::index_sequence<index...>)
 {
     return func(std::get<index>(std::forward<Tup>(tup))...);
 }
  
 template<typename Func, typename Tup>
-decltype(auto) invoke(Func&& func, Tup&& tup)
+decltype(auto) 
+invoke(Func&& func, Tup&& tup)
 {
     constexpr auto Size = std::tuple_size<typename std::decay<Tup>::type>::value;
     return invoke_helper(std::forward<Func>(func),
