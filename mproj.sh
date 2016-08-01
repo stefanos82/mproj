@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="1.0.0"
+version="1.5.0"
 
 std_flag=
 project_name=
@@ -78,27 +78,27 @@ guidance()
 
         It prints this help message and exit.
 
-    --c89:
+    -c89, --c89:
 
         It generates a C project with C89 flag.
 
-    --c99:
+    -c99, --c99:
 
         It generates a C project with C99 flag.
 
-    --c11:
+    -c11, --c11:
 
         It generates a C project with C11 flag.
 
-    --c++98:
+    -c++98, --c++98:
 
         It generates a C++ project with C++98 flag.
 
-    --c++11:
+    -c++11, --c++11:
 
         It generates a C++ project with C++11 flag.
 
-    --c++14:
+    -c++14, --c++14:
 
         It generates a C++ project with C++14 flag.
 
@@ -254,7 +254,7 @@ fi
 
 while [ $1 ]; do
     case $1 in
-        --c89 )
+        -c89 | --c89 )
             compiler=gcc
             file_extension=c
             std_flag=c89
@@ -281,7 +281,7 @@ while [ $1 ]; do
             exit
             ;;
 
-        --c99 )
+        -c99 | --c99 )
             compiler=gcc
             file_extension=c
             std_flag=c99
@@ -308,7 +308,7 @@ while [ $1 ]; do
             exit
             ;;
 
-        --c11 )
+        -c11 | --c11 )
             compiler=gcc
             file_extension=c
             std_flag=c11
@@ -335,7 +335,7 @@ while [ $1 ]; do
             exit
             ;;
 
-        --c++98 )
+        -c++98 | --c++98 )
             compiler=g++
             file_extension=cpp
             std_flag=c++98
@@ -362,7 +362,7 @@ while [ $1 ]; do
             exit
             ;;
 
-        --c++11 )
+        -c++11 | --c++11 )
             compiler=g++
             file_extension=cpp
             std_flag=c++11
@@ -389,7 +389,7 @@ while [ $1 ]; do
             exit
             ;;
 
-        --c++14 )
+        -c++14 | --c++14 )
             compiler=g++
             file_extension=cpp
             std_flag=c++14

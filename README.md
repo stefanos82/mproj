@@ -37,7 +37,7 @@ Just delete the folder.
 
     Example(s):
         * mproj.sh --c89 /tmp/a/directory/of/your/choice
-        * mproj.sh --c++11 
+        * mproj.sh -c++11 
 
 ####FLAG
 
@@ -45,27 +45,27 @@ Just delete the folder.
 
     It prints this help message and exit.
     
-**--c89**
+**-c89, --c89**
 
     It generates a C project with C89 flag.
 
-**--c99**
+**-c99, --c99**
 
     It generates a C project with C99 flag.
 
-**--c11**
+**-c11, --c11**
 
     It generates a C project with C11 flag.
 
-**--c++98**
+**-c++98, --c++98**
 
     It generates a C++ project with C++98 flag.
 
-**--c++11**
+**-c++11, --c++11**
 
     It generates a C++ project with C++11 flag.
 
-**--c++14**
+**-c++14, --c++14**
 
     It generates a C++ project with C++14 flag.
 
