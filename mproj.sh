@@ -7,13 +7,14 @@ project_name=
 compiler=
 file_extension=
 
-mk_template()
-{
-    cat > Makefile <<EOF
+mk_template() {
+    if [ ! -f Makefile ]
+    then
+        cat > Makefile <<EOF
 CC = $compiler
 
-SRC = src
-INCLUDE = include
+SRC := src
+INCLUDE := include
 
 INC = -I \$(INCLUDE)
 
@@ -55,13 +56,13 @@ clean:
 
 .DEFAULT_GOAL := full
 EOF
+    fi
 }
 
-version()
-{
+version() {
 	cat <<EOF
 mproj, version $version
-Copyright (C) $(date +'%Y') Free Software Foundation, Inc.
+Copyright (C) $(date +'%Y') Stefanos Sofroniou
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 
 This is free software; you are free to change and redistribute it.
@@ -69,10 +70,9 @@ There is NO WARRANTY, to the extent permitted by law.
 EOF
 }
 
-guidance()
-{
+guidance() {
     cat <<EOF
-    Usage: $(basename $0) [OPTIONS] <project-name>
+    Usage: $(basename "$0") [OPTIONS] <project-name>
 
     -h, --help:
 
@@ -107,19 +107,20 @@ guidance()
         Displays project version and License.
 
 EOF
-    exit $1
 }
 
-skeleton()
-{
-    if [ ! -d src ] && [ ! -d include ]; then 
-        mkdir {src,include}
+skeleton() {
+    if [ ! -d src ] && [ ! -d include ]
+    then
+        mkdir src include
     fi
 
-    if [ $compiler = "gcc" ] && [ $std_flag = "c89" ]; then
-
-        touch src/main.c
-        cat > src/main.c <<EOF
+    if [ $compiler = "gcc" ] && [ $std_flag = "c89" ]
+    then
+        if [ ! -f src/main.c ]
+        then
+            touch src/main.c
+            cat > src/main.c <<EOF
 #include <stdio.h>
 
 int main(void)
@@ -128,12 +129,15 @@ int main(void)
     return 0;
 }
 EOF
+        fi
     fi
 
-    if [ $compiler = "gcc" ] && [ $std_flag = "c99" ]; then
-
-        touch src/main.c
-        cat > src/main.c <<EOF
+    if [ $compiler = "gcc" ] && [ $std_flag = "c99" ]
+    then
+        if [ ! -f src/main.c ]
+        then
+            touch src/main.c
+            cat > src/main.c <<EOF
 #include <stdio.h>
 
 int main(void)
@@ -147,12 +151,15 @@ int main(void)
     return 0;
 }
 EOF
+        fi
     fi
 
-    if [ $compiler = "gcc" ] && [ $std_flag = "c11" ]; then
-
-        touch src/main.c
-        cat > src/main.c <<EOF
+    if [ $compiler = "gcc" ] && [ $std_flag = "c11" ]
+    then
+        if [ ! -f src/main.c ]
+        then
+            touch src/main.c
+            cat > src/main.c <<EOF
 #include <stdio.h>
 
 #define typeOf(x)   \
@@ -170,12 +177,15 @@ int main(void)
     return 0;
 }
 EOF
+        fi
     fi
 
-    if [ $compiler = "g++" ] && [ $std_flag = "c++98" ]; then
-        
-        touch src/main.cpp
-        cat > src/main.cpp <<EOF
+    if [ $compiler = "g++" ] && [ $std_flag = "c++98" ]
+    then
+        if [ ! -f src/main.cpp ]
+        then
+            touch src/main.cpp
+            cat > src/main.cpp <<EOF
 #include <iostream>
 
 int main()
@@ -184,12 +194,15 @@ int main()
     return 0;
 }
 EOF
+        fi
     fi
 
-    if [ $compiler = "g++" ] && [ $std_flag = "c++11" ]; then
-
-        touch src/main.cpp
-        cat > src/main.cpp <<EOF
+    if [ $compiler = "g++" ] && [ $std_flag = "c++11" ]
+    then
+        if [ ! -f src/main.cpp ]
+        then
+            touch src/main.cpp
+            cat > src/main.cpp <<EOF
 #include <iostream>
 #include <typeinfo>
 
@@ -200,16 +213,20 @@ int main()
     std::cout << "Hello C++11 world!" << '\n';
 }
 EOF
+        fi
     fi
-    if [ $compiler = "g++" ] && [ $std_flag = "c++14" ]; then 
+
+    if [ $compiler = "g++" ] && [ $std_flag = "c++14" ]
+    then 
         
         # special thanks to cppreference website for providing
         # this example.
         # I use it for demonstrative purposes and to check that
         # my actual flag mechanism works as expected.
-
-        touch src/main.cpp
-        cat > src/main.cpp <<EOF
+        if [ ! -f src/main.cpp ]
+        then
+            touch src/main.cpp
+            cat > src/main.cpp <<EOF
 #include <iostream>
 #include <tuple>
 #include <utility>
@@ -243,6 +260,7 @@ int main()
     std::cout << "Hello C++14 world!" << '\n';
 }
 EOF
+        fi
     fi
 }
 
@@ -252,7 +270,7 @@ if [ $# -eq 0 ]; then
     echo
 fi
 
-while [ $1 ]; do
+while [ "$1" ]; do
     case $1 in
         -c89 | --c89 )
             compiler=gcc
@@ -272,8 +290,8 @@ while [ $1 ]; do
             
             shift
 
-            mkdir -p $project_name
-            cd $project_name
+            mkdir -p "$project_name"
+            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
 
             skeleton
             mk_template
@@ -299,8 +317,8 @@ while [ $1 ]; do
             
             shift
 
-            mkdir -p $project_name
-            cd $project_name
+            mkdir -p "$project_name"
+            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
 
             skeleton
             mk_template
@@ -326,8 +344,8 @@ while [ $1 ]; do
             
             shift
             
-            mkdir -p $project_name
-            cd $project_name
+            mkdir -p "$project_name"
+            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
 
             skeleton
             mk_template
@@ -353,8 +371,8 @@ while [ $1 ]; do
             
             shift
 
-            mkdir -p $project_name
-            cd $project_name
+            mkdir -p "$project_name"
+            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
 
             skeleton
             mk_template
@@ -380,8 +398,8 @@ while [ $1 ]; do
 
             shift
 
-            mkdir -p $project_name
-            cd $project_name
+            mkdir -p "$project_name"
+            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
 
             skeleton
             mk_template
@@ -407,8 +425,8 @@ while [ $1 ]; do
             
             shift
 
-            mkdir -p $project_name
-            cd $project_name
+            mkdir -p "$project_name"
+            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
 
             skeleton
             mk_template
