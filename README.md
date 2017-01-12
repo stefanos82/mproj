@@ -36,8 +36,11 @@ In case you forget to insert a project name as your second argument,
 it defaults to \[FLAG\]\_demo.
 
 Example(s):
+
+```bash
     mproj.sh --c89 /tmp/a/directory/of/your/choice
     mproj.sh -c++11 
+```
 
 #### FLAGS
 
