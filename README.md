@@ -76,6 +76,7 @@ It generates a C++ project with C++14 flag.
 **-c++17, --c++17**
 
 It generates a C++ project with C++17 flag.
+
 **-v, --version:**
 
 Displays project version and License.
