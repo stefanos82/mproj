@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+#define typeOf(x)   \
+    _Generic(       \
+        (x),        \
+        int: "int", \
+    double: "double", \
+    default: "none")
+
+int main(void)
+{
+    printf("typeOf('A'): %s\n", typeOf('A'));
+    printf("\nHello C11 World!\n");
+
+    return 0;
+}
