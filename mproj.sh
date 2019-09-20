@@ -73,7 +73,7 @@ EOF
 version() {
 	cat <<EOF
 mproj, version $version
-Copyright (C) 2017 - $(date +'%Y') Stefanos Sofroniou
+Copyright (C) 2016 - $(date +'%Y') Stefanos Sofroniou
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 
 This is free software; you are free to change and redistribute it.
