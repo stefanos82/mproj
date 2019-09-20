@@ -31,7 +31,7 @@ in there.
 
 ## Uninstallation
 
-First make sure you remove any symlink and the delete the folder
+First make sure you remove any symlink and then delete the folder
 wherever is located.
 
 ## CLI Usage
