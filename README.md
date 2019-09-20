@@ -23,15 +23,20 @@ It can generate the following versions:
 
 ## Installation
 
-You just run it as normal user.
+You just run it as normal user, but I would suggest to add it in your PATH so 
+you can access it from pretty much anywhere.
+
+Personally I have a `bin` directory in $HOME and have symlink-ed `mproj`
+in there.
 
 ## Uninstallation
 
-Just delete the folder.
+First make sure you remove any symlink and the delete the folder
+wherever is located.
 
 ## CLI Usage
 
-**mproj.sh** \[FLAG\] \<project-name\>
+**mproj** \[FLAG\] \<project-name\>
 
 In case you forget to insert a project name as your second argument,
 it defaults to \[FLAG\]\_demo.
@@ -39,8 +44,8 @@ it defaults to \[FLAG\]\_demo.
 Example(s):
 
 ```bash
-    mproj.sh --c89 /tmp/a/directory/of/your/choice
-    mproj.sh -c++11 
+    mproj --c89 /tmp/a/directory/of/your/choice
+    mproj -c++11 
 ```
 
 #### FLAGS
