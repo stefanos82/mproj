@@ -3,7 +3,7 @@
 # Not a portable method, but a useful hack nevertheless.
 location="$(dirname "$(readlink -e "$(command -v mproj)")")"
 
-version="2.0.0"
+version="2.1.0"
 
 std_flag=
 project_name=
@@ -11,9 +11,20 @@ compiler=
 file_extension=
 
 mk_template() {
-    if [ ! -f Makefile ]
+
+    if [ ! -f flags.mk ]
     then
-        cat > Makefile <<EOF
+        cat > flags.mk <<EOF
+FLAGS ?= -Wall
+FLAGS += -pedantic
+FLAGS += -std=$std_flag
+FLAGS += -O2
+EOF
+    fi
+
+    if [ ! -f makefile ]
+    then
+        cat > makefile <<EOF
 CC = $compiler
 
 SRC := src
@@ -21,10 +32,7 @@ INCLUDE := include
 
 INC = -I \$(INCLUDE)
 
-FLAGS ?= -Wall
-FLAGS += -pedantic
-FLAGS += -std=$std_flag
-FLAGS += -O2
+include flags.mk
 
 OBJDIR := obj
 BINDIR := bin
@@ -65,7 +73,7 @@ EOF
 version() {
 	cat <<EOF
 mproj, version $version
-Copyright (C) $(date +'%Y') Stefanos Sofroniou
+Copyright (C) 2017 - $(date +'%Y') Stefanos Sofroniou
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 
 This is free software; you are free to change and redistribute it.

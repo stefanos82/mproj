@@ -26,7 +26,7 @@ int main()
  
     std::cout << "a: " << std::any_cast<const std::string&>(a) << '\n'; //< const reference
  
-    auto b = std::any_cast<std::string&&>(a); //< rvalue reference (no need for std::move)
+    auto b = std::any_cast<std::string&&>(std::move(a)); //< rvalue reference (no need for std::move)
  
     // Note, 'b' is a move-constructed std::string, 'a' is now empty
  
