@@ -16,6 +16,7 @@ mk_template() {
     then
         cat > flags.mk <<EOF
 FLAGS ?= -Wall
+FLAGS += -Wextra
 FLAGS += -pedantic
 FLAGS += -std=$std_flag
 FLAGS += -O2
