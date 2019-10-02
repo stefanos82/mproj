@@ -91,6 +91,7 @@ guidance() {
         It prints this help message and exit.
 
     c, -c, --c:
+
         It generates a C project with C11 flag. [default]
 
     -c89, --c89:
