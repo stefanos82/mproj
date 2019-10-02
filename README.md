@@ -36,16 +36,20 @@ wherever is located.
 
 ## CLI Usage
 
-**mproj** \[FLAG\] \<project-name\>
+```bash
+    mproj [FLAG] <project-name>
+```
 
 In case you forget to insert a project name as your second argument,
-it defaults to \[FLAG\]\_demo.
+it defaults to `[FLAG]_demo`.
 
 Example(s):
 
 ```bash
     mproj --c89 /tmp/a/directory/of/your/choice
-    mproj -c++11 
+    mproj c MyC11 (it defaults to C11)
+    mproj -c++11
+    mproj cpp MyCPP17 (it defaults to C++17)
 ```
 
 #### FLAGS
