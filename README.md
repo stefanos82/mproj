@@ -52,7 +52,7 @@ Example(s):
 
 **-h, --help:**
 
-It prints this help message and exit.
+    It prints this help message and exit.
 
 **c, -c, --c:**
 
@@ -60,38 +60,39 @@ It prints this help message and exit.
 
 **-c89, --c89**
 
-It generates a C project with C89 flag.
+    It generates a C project with C89 flag.
 
 **-c99, --c99**
 
-It generates a C project with C99 flag.
+    It generates a C project with C99 flag.
 
 **-c11, --c11**
 
-It generates a C project with C11 flag.
+    It generates a C project with C11 flag.
 
 **cpp, -c++, --c++:**
 
     It generates a C++ project with C++17 flag. [default]
+
 **-c++98, --c++98**
 
-It generates a C++ project with C++98 flag.
+    It generates a C++ project with C++98 flag.
 
 **-c++11, --c++11**
 
-It generates a C++ project with C++11 flag.
+    It generates a C++ project with C++11 flag.
 
 **-c++14, --c++14**
 
-It generates a C++ project with C++14 flag.
+    It generates a C++ project with C++14 flag.
 
 **-c++17, --c++17**
 
-It generates a C++ project with C++17 flag.
+    It generates a C++ project with C++17 flag.
 
 **-v, --version:**
 
-Displays project version and License.
+    Displays project version and License.
 
 ## License
 
