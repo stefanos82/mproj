@@ -3,7 +3,7 @@
 # Not a portable method, but a useful hack nevertheless.
 location="$(dirname "$(readlink -e "$(command -v mproj)")")"
 
-version="2.1.0"
+version="2.2.0"
 
 std_flag=
 project_name=
@@ -90,6 +90,9 @@ guidance() {
 
         It prints this help message and exit.
 
+    c, -c, --c:
+        It generates a C project with C11 flag. [default]
+
     -c89, --c89:
 
         It generates a C project with C89 flag.
@@ -101,6 +104,10 @@ guidance() {
     -c11, --c11:
 
         It generates a C project with C11 flag.
+
+    cpp, -c++, --c++:
+    
+        It generates a C++ project with C++17 flag. [default]
 
     -c++98, --c++98:
 
@@ -267,7 +274,7 @@ while [ "$1" ]; do
             exit
             ;;
 
-        -c11 | --c11 )
+        c | -c | --c | -c11 | --c11 )
             compiler=gcc
             file_extension=c
             std_flag=c11
@@ -375,7 +382,7 @@ while [ "$1" ]; do
             exit
             ;;
 
-        -c++17 | --c++17 )
+        cpp | -c++ | --c++ | -c++17 | --c++17 )
             compiler=g++
             file_extension=cpp
             std_flag=c++17
