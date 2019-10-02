@@ -53,7 +53,11 @@ Example(s):
 **-h, --help:**
 
 It prints this help message and exit.
-    
+
+**c, -c, --c:**
+
+    It generates a C project with C11 flag. [default]
+
 **-c89, --c89**
 
 It generates a C project with C89 flag.
@@ -66,6 +70,9 @@ It generates a C project with C99 flag.
 
 It generates a C project with C11 flag.
 
+**cpp, -c++, --c++:**
+
+    It generates a C++ project with C++17 flag. [default]
 **-c++98, --c++98**
 
 It generates a C++ project with C++98 flag.
