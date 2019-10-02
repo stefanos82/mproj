@@ -54,7 +54,7 @@ Example(s):
 
     It prints this help message and exit.
 
-**c, -c, --c:** [default]
+**c, -c, --c: [default]**
 
     It generates a C project with C11 flag.
 
@@ -70,7 +70,7 @@ Example(s):
 
     It generates a C project with C11 flag.
 
-**cpp, -c++, --c++:** [default]
+**cpp, -c++, --c++: [default]**
 
     It generates a C++ project with C++17 flag.
 
