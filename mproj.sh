@@ -26,7 +26,16 @@ EOF
     if [ ! -f makefile ]
     then
         cat > makefile <<EOF
+CCACHETMP := \$(shell command -v ccache 2>/dev/null)
+ifdef CCACHETMP
+CCACHE = \$(shell basename \$(CCACHETMP))
+endif
+
+ifdef CCACHE
+CC = \$(CCACHE) $compiler
+else
 CC = $compiler
+endif
 
 SRC := src
 INCLUDE := include
