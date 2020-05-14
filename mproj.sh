@@ -3,7 +3,7 @@
 # Not a portable method, but a useful hack nevertheless.
 location="$(dirname "$(readlink -e "$(command -v mproj)")")"
 
-version="2.2.0"
+version="3.2.0"
 
 std_flag=
 project_name=
@@ -26,15 +26,17 @@ EOF
     if [ ! -f makefile ]
     then
         cat > makefile <<EOF
-CCACHETMP := \$(shell command -v ccache 2>/dev/null)
-ifdef CCACHETMP
-CCACHE = \$(shell basename \$(CCACHETMP))
+CCACHE := \$(shell basename \$(shell command -v ccache 2>/dev/null))
+COMPILER := \$(shell basename \$(shell command -v $compiler 2>/dev/null))
+
+ifeq (\$(COMPILER),)
+\$(error \$(COMPILER) not found. Please install it and try again)
 endif
 
 ifdef CCACHE
-CC = \$(CCACHE) $compiler
+CC = \$(CCACHE) \$(COMPILER)
 else
-CC = $compiler
+CC = \$(COMPILER)
 endif
 
 SRC := src
