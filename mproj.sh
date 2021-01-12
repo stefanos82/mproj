@@ -72,10 +72,17 @@ full: clean build all
 
 clean:
 	@echo "Cleaning target and object files..."
+
 ifneq ("\$(wildcard \$(OBJDIR))", "")
-	@rm \$(OBJDIR)/*.o \$(BINDIR)/*
-	@rmdir \$(OBJDIR) \$(BINDIR)
+	@rm \$(OBJDIR)/*.o
+	@rmdir \$(OBJDIR)
 endif
+
+ifneq ("\$(wildcard \$(BINDIR))", "")
+	@rm \$(BINDIR)/*
+	@rmdir \$(BINDIR)
+endif
+
 	@find . -type f -iname "*.gch" -delete
 
 	@echo "All clear!"
