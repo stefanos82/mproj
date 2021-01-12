@@ -3,7 +3,7 @@
 # Not a portable method, but a useful hack nevertheless.
 location="$(dirname "$(readlink -e "$(command -v mproj)")")"
 
-version="3.4.0"
+version="3.5.0"
 
 std_flag=
 project_name=
