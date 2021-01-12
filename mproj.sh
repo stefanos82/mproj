@@ -19,7 +19,6 @@ FLAGS ?= -Wall
 FLAGS += -Wextra
 FLAGS += -pedantic
 FLAGS += -std=$std_flag
-FLAGS += -O2
 EOF
     fi
 
@@ -66,6 +65,14 @@ build:
 \$(OBJECTS): \$(OBJDIR)/%.o: \$(SRC)/%.$file_extension
 	\$(CC) \$(FLAGS) \$(INC) -c \$< -o \$@
 
+debug: FLAGS += -g
+debug: full
+
+release: FLAGS += -O2
+release: full
+release:
+	@strip \$(TARGET)
+
 full: clean build all
 
 .PHONY: clean build all
@@ -87,7 +94,7 @@ endif
 
 	@echo "All clear!"
 
-.DEFAULT_GOAL := full
+.DEFAULT_GOAL := release
 EOF
     fi
 }
