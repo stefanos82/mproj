@@ -19,12 +19,15 @@ FLAGS ?= -Wall
 FLAGS += -Wextra
 FLAGS += -pedantic
 FLAGS += -std=$std_flag
+
+LDFLAGS ?=
+
 EOF
     fi
 
-    if [ ! -f makefile ]
+    if [ ! -f Makefile ]
     then
-        cat > makefile <<EOF
+        cat > Makefile <<EOF
 CCACHE := \$(shell basename \$(shell command -v ccache 2>/dev/null))
 COMPILER := \$(shell basename \$(shell command -v $compiler 2>/dev/null))
 
@@ -57,7 +60,7 @@ OBJECTS = \$(addprefix \$(OBJDIR)/, \$(TMPOBJ))
 all: \$(TARGET)
 
 \$(TARGET): \$(OBJECTS)
-	\$(CC) -o \$@ \$(OBJECTS)
+	\$(CC) -o \$@ \$(OBJECTS) \$(LDFLAGS)
 
 build:
 	@mkdir -p \$(OBJDIR) \$(BINDIR)
@@ -80,13 +83,19 @@ full: clean build all
 clean:
 	@echo "Cleaning target and object files..."
 
-ifneq ("\$(wildcard \$(OBJDIR))", "")
-	@rm \$(OBJDIR)/*.o
+ifneq ("\$(wildcard \$(OBJECTS))", "")
+	@rm \$(OBJECTS)
+endif
+
+ifeq ("\$(wildcard \$(OBJDIR))", "obj")
 	@rmdir \$(OBJDIR)
 endif
 
-ifneq ("\$(wildcard \$(BINDIR))", "")
-	@rm \$(BINDIR)/*
+ifneq ("\$(wildcard \$(TARGET))", "")
+	@rm \$(TARGET)
+endif
+
+ifeq ("\$(wildcard \$(BINDIR))", "bin")
 	@rmdir \$(BINDIR)
 endif
 
@@ -96,7 +105,7 @@ endif
 
 .DEFAULT_GOAL := release
 EOF
-    fi
+	fi
 }
 
 version() {
@@ -141,12 +150,11 @@ skeleton() {
     fi
 
     if [ $compiler = "g++" ] && [ $std_flag = "c++17" ]
-    then 
-        
+    then
         if [ ! -f src/main.cpp ]
         then
             touch src/main.cpp
-			cat "$location/samples/cpp.txt" > src/main.cpp
+            cat "$location/samples/cpp.txt" > src/main.cpp
         fi
     fi
 }
