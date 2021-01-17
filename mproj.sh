@@ -114,49 +114,13 @@ guidance() {
     cat <<EOF
     Usage: $(basename "$0") [OPTIONS] <project-name>
 
-    -h, --help:
+       -h, --help: It prints this help message and exit.
 
-        It prints this help message and exit.
+                c: It generates a C project with C11 flag.
 
-    c, -c, --c: [default]
+              cpp: It generates a C++ project with C++17 flag.
 
-        It generates a C project with C11 flag.
-
-    -c89, --c89:
-
-        It generates a C project with C89 flag.
-
-    -c99, --c99:
-
-        It generates a C project with C99 flag.
-
-    -c11, --c11:
-
-        It generates a C project with C11 flag.
-
-    cpp, -c++, --c++: [default]
-    
-        It generates a C++ project with C++17 flag.
-
-    -c++98, --c++98:
-
-        It generates a C++ project with C++98 flag.
-
-    -c++11, --c++11:
-
-        It generates a C++ project with C++11 flag.
-
-    -c++14, --c++14:
-
-        It generates a C++ project with C++14 flag.
-
-    -c++17, --c++17:
-
-        It generates a C++ project with C++17 flag.
-
-    -v, --version:
-    
-        Displays project version and License.
+    -v, --version: Displays project version and License.
 
 EOF
 }
@@ -167,76 +131,22 @@ skeleton() {
         mkdir src include
     fi
 
-    if [ $compiler = "gcc" ] && [ $std_flag = "c89" ]
-    then
-        if [ ! -f src/main.c ]
-        then
-            touch src/main.c
-            cat "$location/samples/c/c89.txt" > src/main.c
-        fi
-    fi
-
-    if [ $compiler = "gcc" ] && [ $std_flag = "c99" ]
-    then
-        if [ ! -f src/main.c ]
-        then
-            touch src/main.c
-            cat "$location/samples/c/c99.txt" > src/main.c
-        fi
-    fi
-
     if [ $compiler = "gcc" ] && [ $std_flag = "c11" ]
     then
         if [ ! -f src/main.c ]
         then
             touch src/main.c
-            cat "$location/samples/c/c11.txt" > src/main.c
-        fi
-    fi
-
-    if [ $compiler = "g++" ] && [ $std_flag = "c++98" ]
-    then
-        if [ ! -f src/main.cpp ]
-        then
-            touch src/main.cpp
-            cat "$location/samples/cpp/cpp98.txt" > src/main.cpp
-        fi
-    fi
-
-    if [ $compiler = "g++" ] && [ $std_flag = "c++11" ]
-    then
-        if [ ! -f src/main.cpp ]
-        then
-            touch src/main.cpp
-            cat "$location/samples/cpp/cpp11.txt" > src/main.cpp
-        fi
-    fi
-
-    if [ $compiler = "g++" ] && [ $std_flag = "c++14" ]
-    then 
-        
-        # Special thanks to cppreference website for providing
-        # this example.
-        # I use it for demonstrative purposes and to check that
-        # my actual flag mechanism works as expected.
-        if [ ! -f src/main.cpp ]
-        then
-            touch src/main.cpp
-			cat "$location/samples/cpp/cpp14.txt" > src/main.cpp
+            cat "$location/samples/c.txt" > src/main.c
         fi
     fi
 
     if [ $compiler = "g++" ] && [ $std_flag = "c++17" ]
     then 
         
-        # Again, special thanks to cppreference website for providing
-        # this example.
-        # I use it for demonstrative purposes and to check that
-        # my actual flag mechanism works as expected.
         if [ ! -f src/main.cpp ]
         then
             touch src/main.cpp
-			cat "$location/samples/cpp/cpp17.txt" > src/main.cpp
+			cat "$location/samples/cpp.txt" > src/main.cpp
         fi
     fi
 }
@@ -249,61 +159,8 @@ fi
 
 while [ "$1" ]; do
     case $1 in
-        -c89 | --c89 )
-            compiler=gcc
-            file_extension=c
-            std_flag=c89
 
-            if [ -z "$2" ]
-            then
-                project_name="${std_flag}_demo"
-                echo
-                echo "Second argument was not provided."
-                echo "Project's default name is '$project_name'."
-                echo
-            else
-                project_name=$2
-            fi
-            
-            shift
-
-            mkdir -p "$project_name"
-            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
-
-            skeleton
-            mk_template
-            
-            exit
-            ;;
-
-        -c99 | --c99 )
-            compiler=gcc
-            file_extension=c
-            std_flag=c99
-
-            if [ -z "$2" ]
-            then
-                project_name="${std_flag}_demo"
-                echo
-                echo "Second argument was not provided."
-                echo "Project's default name is '$project_name'."
-                echo
-            else
-                project_name=$2
-            fi
-            
-            shift
-
-            mkdir -p "$project_name"
-            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
-
-            skeleton
-            mk_template
-
-            exit
-            ;;
-
-        c | -c | --c | -c11 | --c11 )
+        c )
             compiler=gcc
             file_extension=c
             std_flag=c11
@@ -330,88 +187,7 @@ while [ "$1" ]; do
             exit
             ;;
 
-        -c++98 | --c++98 )
-            compiler=g++
-            file_extension=cpp
-            std_flag=c++98
-
-            if [ -z "$2" ]
-            then
-                project_name="${std_flag}_demo"
-                echo
-                echo "Second argument was not provided."
-                echo "Project's default name is '$project_name'."
-                echo
-            else
-                project_name=$2
-            fi
-            
-            shift
-
-            mkdir -p "$project_name"
-            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
-
-            skeleton
-            mk_template
-
-            exit
-            ;;
-
-        -c++11 | --c++11 )
-            compiler=g++
-            file_extension=cpp
-            std_flag=c++11
-
-            if [ -z "$2" ]
-            then
-                project_name="${std_flag}_demo"
-                echo
-                echo "Second argument was not provided."
-                echo "Project's default name is '$project_name'."
-                echo
-            else
-                project_name=$2
-            fi
-
-            shift
-
-            mkdir -p "$project_name"
-            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
-
-            skeleton
-            mk_template
-
-            exit
-            ;;
-
-        -c++14 | --c++14 )
-            compiler=g++
-            file_extension=cpp
-            std_flag=c++14
-            
-            if [ -z "$2" ]
-            then
-                project_name="${std_flag}_demo"
-                echo
-                echo "Second argument was not provided."
-                echo "Project's default name is '$project_name'."
-                echo
-            else
-                project_name=$2
-            fi
-            
-            shift
-
-            mkdir -p "$project_name"
-            cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
-
-            skeleton
-            mk_template
-
-            exit
-            ;;
-
-        cpp | -c++ | --c++ | -c++17 | --c++17 )
+        cpp )
             compiler=g++
             file_extension=cpp
             std_flag=c++17

@@ -1,9 +1,0 @@
-#include <iostream>
-#include <typeinfo>
-
-int main()
-{
-    auto a = 1 + 2;
-    std::cout << "type of a: " << typeid(a).name() << '\n';
-    std::cout << "Hello C++11 world!" << '\n';
-}
