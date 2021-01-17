@@ -8,19 +8,6 @@ Bash shell script that generates empty C or C++ project templates.
 that consists of two directories, **src** and **include**, and a
 **Makefile**.
 
-It can generate the following versions:
-
-* C language:
-    - [x] C89
-    - [x] C99
-    - [x] C11
-    
-* C++ language:
-   - [x] C++98
-   - [x] C++11
-   - [x] C++14
-   - [x] C++17
-
 ## Installation
 
 You just run it as normal user, but I would suggest to add it in your PATH so 
@@ -46,9 +33,8 @@ it defaults to `[FLAG]_demo`.
 Example(s):
 
 ```bash
-    mproj --c89 /tmp/a/directory/of/your/choice
+    mproj c /tmp/a/directory/of/your/choice
     mproj c MyC11 (it defaults to C11)
-    mproj -c++11
     mproj cpp MyCPP17 (it defaults to C++17)
 ```
 
@@ -58,39 +44,11 @@ Example(s):
 
     It prints this help message and exit.
 
-**c, -c, --c: [default]**
+**c:**
 
     It generates a C project with C11 flag.
 
-**-c89, --c89**
-
-    It generates a C project with C89 flag.
-
-**-c99, --c99**
-
-    It generates a C project with C99 flag.
-
-**-c11, --c11**
-
-    It generates a C project with C11 flag.
-
-**cpp, -c++, --c++: [default]**
-
-    It generates a C++ project with C++17 flag.
-
-**-c++98, --c++98**
-
-    It generates a C++ project with C++98 flag.
-
-**-c++11, --c++11**
-
-    It generates a C++ project with C++11 flag.
-
-**-c++14, --c++14**
-
-    It generates a C++ project with C++14 flag.
-
-**-c++17, --c++17**
+**cpp:**
 
     It generates a C++ project with C++17 flag.
 
