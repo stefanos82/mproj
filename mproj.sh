@@ -72,9 +72,8 @@ debug: FLAGS += -g
 debug: full
 
 release: FLAGS += -O2
+release: LDFLAGS += -s
 release: full
-release:
-	@strip \$(TARGET)
 
 full: clean build all
 
