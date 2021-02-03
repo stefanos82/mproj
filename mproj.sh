@@ -3,7 +3,7 @@
 # Not a portable method, but a useful hack nevertheless.
 location="$(dirname "$(readlink -e "$(command -v mproj)")")"
 
-version="4.0.0"
+version="4.1.0"
 
 std_flag=
 project_name=
@@ -28,7 +28,12 @@ EOF
     if [ ! -f Makefile ]
     then
         cat > Makefile <<EOF
-CCACHE := \$(shell basename \$(shell command -v ccache 2>/dev/null))
+CCACHE_IS_INSTALLED := \$(shell command -v ccache 2>/dev/null)
+
+ifdef CCACHE_IS_INSTALLED
+CCACHE := \$(shell basename \$(CCACHE_IS_INSTALLED))
+endif
+
 COMPILER := \$(shell basename \$(shell command -v $compiler 2>/dev/null))
 
 ifeq (\$(COMPILER),)
@@ -57,6 +62,11 @@ SOURCES = \$(wildcard \$(SRC)/*.$file_extension)
 TMPOBJ = \$(patsubst %.$file_extension, %.o, \$(notdir \$(SOURCES)))
 OBJECTS = \$(addprefix \$(OBJDIR)/, \$(TMPOBJ))
 
+CPUS ?= \$(shell nproc)
+ifdef CPUS
+MAKEFLAGS += --jobs=\$(CPUS)
+endif
+
 all: \$(TARGET)
 
 \$(TARGET): \$(OBJECTS)
@@ -69,6 +79,8 @@ build:
 	\$(CC) \$(FLAGS) \$(INC) -c \$< -o \$@
 
 debug: FLAGS += -g
+debug:
+	@echo "make \$(MAKEFLAGS) got executed in debug mode..."
 debug: full
 
 release: FLAGS += -O2
