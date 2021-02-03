@@ -56,7 +56,7 @@ include flags.mk
 OBJDIR := obj
 BINDIR := bin
 
-TARGET = \$(BINDIR)/\$(notdir \$(basename $project_name))
+TARGET = \$(BINDIR)/\$(notdir \$(basename \$(shell pwd)))
 
 SOURCES = \$(wildcard \$(SRC)/*.$file_extension)
 TMPOBJ = \$(patsubst %.$file_extension, %.o, \$(notdir \$(SOURCES)))
@@ -196,7 +196,13 @@ while [ "$1" ]; do
             
             shift
             
-            mkdir -p "$project_name"
+            if [ ! -d "$project_name" ]
+            then
+                mkdir -p "$project_name"
+            else
+                printf "Directory '$project_name' already exists.\n" >&2; exit 1;
+            fi
+
             cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
 
             skeleton
@@ -223,7 +229,13 @@ while [ "$1" ]; do
             
             shift
 
-            mkdir -p "$project_name"
+            if [ ! -d "$project_name" ]
+            then
+                mkdir -p "$project_name"
+            else
+                printf "Directory '$project_name' already exists.\n" >&2; exit 1;
+            fi
+
             cd "$project_name" || { printf "Could not change to directory." >&2; exit 1; }
 
             skeleton
