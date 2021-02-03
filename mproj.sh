@@ -3,7 +3,7 @@
 # Not a portable method, but a useful hack nevertheless.
 location="$(dirname "$(readlink -e "$(command -v mproj)")")"
 
-version="4.1.0"
+version="4.2.0"
 
 std_flag=
 project_name=
@@ -67,8 +67,6 @@ ifdef CPUS
 MAKEFLAGS += --jobs=\$(CPUS)
 endif
 
-all: \$(TARGET)
-
 \$(TARGET): \$(OBJECTS)
 	\$(CC) -o \$@ \$(OBJECTS) \$(LDFLAGS)
 
@@ -87,15 +85,16 @@ release: FLAGS += -O2
 release: LDFLAGS += -s
 release: full
 
-full: clean build all
+full: build
+full: \$(TARGET)
 
-.PHONY: clean build all
+.PHONY: clean build
 
 clean:
 	@echo "Cleaning target and object files..."
 
 ifneq ("\$(wildcard \$(OBJECTS))", "")
-	@rm \$(OBJECTS)
+	@rm -f \$(OBJECTS)
 endif
 
 ifeq ("\$(wildcard \$(OBJDIR))", "obj")
@@ -103,7 +102,7 @@ ifeq ("\$(wildcard \$(OBJDIR))", "obj")
 endif
 
 ifneq ("\$(wildcard \$(TARGET))", "")
-	@rm \$(TARGET)
+	@rm -f \$(TARGET)
 endif
 
 ifeq ("\$(wildcard \$(BINDIR))", "bin")
