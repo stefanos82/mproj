@@ -85,29 +85,15 @@ release: FLAGS += -O2
 release: LDFLAGS += -s
 release: full
 
-full: build
-full: \$(TARGET)
+full: build \$(TARGET)
 
 .PHONY: clean build
 
 clean:
 	@echo "Cleaning target and object files..."
 
-ifneq ("\$(wildcard \$(OBJECTS))", "")
-	@rm -f \$(OBJECTS)
-endif
-
-ifeq ("\$(wildcard \$(OBJDIR))", "obj")
-	@rmdir \$(OBJDIR)
-endif
-
-ifneq ("\$(wildcard \$(TARGET))", "")
-	@rm -f \$(TARGET)
-endif
-
-ifeq ("\$(wildcard \$(BINDIR))", "bin")
-	@rmdir \$(BINDIR)
-endif
+	@\$(RM) -r \$(OBJDIR)
+	@\$(RM) -r \$(BINDIR)
 
 	@find . -type f -iname "*.gch" -delete
 
