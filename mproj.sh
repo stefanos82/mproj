@@ -3,7 +3,7 @@
 # Not a portable method, but a useful hack nevertheless.
 location="$(dirname "$(readlink -e "$(command -v mproj)")")"
 
-version="4.2.0"
+version="4.3.0"
 
 std_flag=
 project_name=
@@ -104,7 +104,7 @@ release: FLAGS += -O2
 release: LDFLAGS += -s
 release: full
 
-full: build \$(TARGET)
+full: build ccmd \$(TARGET)
 
 .PHONY: clean build
 
@@ -113,6 +113,8 @@ clean:
 
 	@\$(RM) -r \$(OBJDIR)
 	@\$(RM) -r \$(BINDIR)
+
+	@\$(RM) compile_commands.json
 
 	@find . -type f -iname "*.gch" -delete
 
