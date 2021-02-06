@@ -67,6 +67,25 @@ ifdef CPUS
 MAKEFLAGS += --jobs=\$(CPUS)
 endif
 
+.PHONY: ccmd
+
+ccmd:
+	@echo "[" > compile_commands.json ; \\
+		for source in \$\$(echo "\$(SOURCES)" | xargs) ; do \\
+			object=\$\$(echo \$\$source | sed "s/src/obj/;s/\.cpp/.o/") ; \\
+			echo "  {" >> compile_commands.json ; \\
+			echo '    "directory": ''"'"\$\$(pwd)"'",' >> compile_commands.json ; \\
+			echo '    "command": "\$(CC) \$(FLAGS) \$(INC) -c '"\$\$source -o \$\$object"'",' >> compile_commands.json ; \\
+			echo '    "file": "'"\$\$source"'",' >> compile_commands.json ; \\
+			echo '    "output": "'"\$\$object"'"' >> compile_commands.json ; \\
+			echo "  }," >> compile_commands.json ; \\
+		done ; \\
+		echo "]" >> compile_commands.json ; \\
+		lines=\$\$(wc -l compile_commands.json | cut -d" " -f1) ; \\
+		lines=\$\$((lines-1)) ; \\
+		sed -i "\$\${lines}s/  },/  }/" compile_commands.json ; \\
+		echo "Generated compile_commands.json"
+
 \$(TARGET): \$(OBJECTS)
 	\$(CC) -o \$@ \$(OBJECTS) \$(LDFLAGS)
 
